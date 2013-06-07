@@ -1,6 +1,11 @@
+# Directories #
+/settings
+# Binary files #
 *.class
 
+
 # Package Files #
+
 *.jar
 *.war
 *.ear
