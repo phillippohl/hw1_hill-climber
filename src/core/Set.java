@@ -11,20 +11,23 @@ import interfaces.SetSpec;
  */
 public class Set implements SetSpec {
 	
-	private int length;
-	private int[] values;
 	private int counter;
+	private int length;
+	private int sum;
+	private int[] values;
 	
 	public Set(int length) {
-		this.length = length;
-		this.values = new int[100];
 		this.counter = 0;
+		this.length = length;
+		this.sum = 0;
+		this.values = new int[100];
 	}
 
 	@Override
-	public void calculateSum() {
-		// TODO Auto-generated method stub
-
+	public void calculateSum() {	
+		for (int i = 0; i < length; i++) {
+			sum += values[i];
+		}
 	}
 
 	@Override
@@ -40,8 +43,7 @@ public class Set implements SetSpec {
 
 	@Override
 	public int getSum() {
-		// TODO Auto-generated method stub
-		return 0;
+		return sum;
 	}
 
 	@Override
@@ -50,6 +52,7 @@ public class Set implements SetSpec {
 		return counter++;
 	}
 
+	@Override
 	public int getValue(int index) {
 		return values[index];
 	}

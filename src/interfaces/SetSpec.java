@@ -13,4 +13,5 @@ public interface SetSpec {
 	int getLength();
 	int getRandomMember();
 	int getSum();
+	int getValue(int index);
 }

@@ -39,4 +39,12 @@ public class SetTest {
 		assertEquals(5, s.getValue(s.addValue(5)));
 		assertEquals(15, s.getValue(s.addValue(15)));
 	}
+	
+	@Test
+	public void testCalculateSum() {
+		s.addValue(5);
+		s.addValue(15);
+		s.calculateSum();
+		assertEquals(20, s.getSum());
+	}
 }
