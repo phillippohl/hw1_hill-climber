@@ -9,7 +9,7 @@ package interfaces;
  */
 public interface SetSpec {
 	void calculateSum();
-	void setLength();
+	int addValue(int value);
 	int getLength();
 	int getRandomMember();
 	int getSum();

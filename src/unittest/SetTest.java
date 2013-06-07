@@ -30,7 +30,13 @@ public class SetTest {
 	}
 	
 	@Test
-	public void TestGetLength() {
+	public void testGetLength() {
 		assertEquals(100, s.getLength());
+	}
+	
+	@Test
+	public void testSetValue() {
+		assertEquals(5, s.getValue(s.addValue(5)));
+		assertEquals(15, s.getValue(s.addValue(15)));
 	}
 }
