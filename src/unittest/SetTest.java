@@ -21,7 +21,7 @@ public class SetTest {
 
 	@Before
 	public void initialize() {
-		s = new Set(100);
+		s = new Set(2);
 	}
 	
 	@After
@@ -31,7 +31,7 @@ public class SetTest {
 	
 	@Test
 	public void testGetLength() {
-		assertEquals(100, s.getLength());
+		assertEquals(2, s.getLength());
 	}
 	
 	@Test
@@ -46,5 +46,12 @@ public class SetTest {
 		s.addValue(15);
 		s.calculateSum();
 		assertEquals(20, s.getSum());
+	}
+	
+	@Test
+	public void testGetRandomMember() {
+		s.addValue(5);
+		s.addValue(5);
+		assertEquals(5, s.getRandomMember());
 	}
 }

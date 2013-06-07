@@ -37,8 +37,7 @@ public class Set implements SetSpec {
 
 	@Override
 	public int getRandomMember() {
-		// TODO Auto-generated method stub
-		return 0;
+		return values[(int) (Math.random()*length)];
 	}
 
 	@Override
