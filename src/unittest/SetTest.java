@@ -64,4 +64,12 @@ public class SetTest {
 	public void testGetRandomMember() {
 		assertNotNull(s.getRandomMember());
 	}
+	
+	@Test
+	public void testGetCopy() {
+		Set copy = s.getCopy();
+		assertArrayEquals(s.getValues(), copy.getValues());
+		assertEquals(s.getLength(), copy.getLength());
+		assertEquals(s.getSum(), copy.getSum());
+	}
 }

@@ -24,7 +24,7 @@ public class Set implements SetSpec {
 		this.values = new int[100];
 		this.refreshed = true;
 	}
-
+	
 	@Override
 	public void calculateSum() {	
 		for (int i = 0; i < length; i++) {
@@ -78,9 +78,25 @@ public class Set implements SetSpec {
 		return values[index];
 	}
 	
+	@Override
+	public int[] getValues() {
+		return this.values;
+	}
+	
 	private void refreshSum() {
 		sum = 0;
 		calculateSum();
 		this.refreshed = true;
+	}
+
+	@Override
+	public Set getCopy() {
+		Set copy = new Set(this.length);
+		copy.counter = this.counter;
+		copy.length = this.length;
+		copy.sum = this.sum;
+		copy.values = this.values.clone();
+		copy.refreshed = this.refreshed;
+		return copy;
 	}
 }

@@ -1,5 +1,7 @@
 package interfaces;
 
+import core.Set;
+
 /**
  * 
  */
@@ -17,4 +19,6 @@ public interface SetSpec {
 	int getRandomMember();
 	int getSum();
 	int getValue(int index);
+	int[] getValues();
+	Set getCopy();
 }
