@@ -15,6 +15,7 @@ public class Set implements SetSpec {
 	private int length;
 	private int sum;
 	private int[] values;
+	private int randomMemberIndex;
 	boolean refreshed;
 	
 	public Set(int length) {
@@ -22,6 +23,7 @@ public class Set implements SetSpec {
 		this.length = length;
 		this.sum = 0;
 		this.values = new int[100];
+		this.randomMemberIndex = 0;
 		this.refreshed = true;
 	}
 	
@@ -39,7 +41,26 @@ public class Set implements SetSpec {
 
 	@Override
 	public int getRandomMember() {
-		return values[(int) (Math.random()*length)];
+		randomMemberIndex = (int) (Math.random()*length);
+		return values[randomMemberIndex];
+	}
+	
+	@Override
+	public int getLowerNeighbor() throws Exception {	
+		if (randomMemberIndex < 0) {
+			System.out.println("Current solution has no lower neighbor.");
+			throw new Exception("Reached lower limit.");
+		}
+		return values[randomMemberIndex-1];
+	}
+
+	@Override
+	public int getUpperNeighbor() throws Exception {
+		if (randomMemberIndex > values.length) {
+			System.out.println("Current solution has no upper neighbor.");
+			throw new Exception("Reached upper limit.");
+		}
+		return values[randomMemberIndex+1];
 	}
 
 	@Override

@@ -21,4 +21,6 @@ public interface SetSpec {
 	int getValue(int index);
 	int[] getValues();
 	Set getCopy();
+	int getLowerNeighbor() throws Exception;
+	int getUpperNeighbor() throws Exception;
 }
