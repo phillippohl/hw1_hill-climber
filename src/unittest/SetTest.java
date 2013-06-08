@@ -22,6 +22,8 @@ public class SetTest {
 	@Before
 	public void initialize() {
 		s = new Set(2);
+		s.addValue(5);
+		s.addValue(15);
 	}
 	
 	@After
@@ -35,23 +37,31 @@ public class SetTest {
 	}
 	
 	@Test
-	public void testSetValue() {
+	public void testAddValue() {
 		assertEquals(5, s.getValue(s.addValue(5)));
 		assertEquals(15, s.getValue(s.addValue(15)));
 	}
 	
 	@Test
+	public void testReplaceValue() {
+		s.replaceValue(25, 0);
+		assertEquals(25, s.getValue(0));
+	}
+	
+	@Test
+	public void testDeleteValue() {
+		s.deleteValue(0);
+		assertEquals(15, s.getValue(0));
+	}
+	
+	@Test
 	public void testCalculateSum() {
-		s.addValue(5);
-		s.addValue(15);
 		s.calculateSum();
 		assertEquals(20, s.getSum());
 	}
 	
 	@Test
 	public void testGetRandomMember() {
-		s.addValue(5);
-		s.addValue(5);
-		assertEquals(5, s.getRandomMember());
+		assertNotNull(s.getRandomMember());
 	}
 }

@@ -11,6 +11,8 @@ package interfaces;
 public interface SetSpec {
 	void calculateSum();
 	int addValue(int value);
+	void replaceValue(int newValue, int index);
+	void deleteValue(int index);
 	int getLength();
 	int getRandomMember();
 	int getSum();

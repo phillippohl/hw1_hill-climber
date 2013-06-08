@@ -58,11 +58,26 @@ public class Set implements SetSpec {
 	}
 
 	@Override
+	public void replaceValue(int newValue, int index) {		
+		values[index] = newValue;
+	}
+
+	@Override
+	public void deleteValue(int index) {
+		while(index < counter) {
+			values[index] = values[index+1];
+			index++;
+		}
+		counter--;
+	}
+	
+	@Override
 	public int getValue(int index) {
 		return values[index];
 	}
 	
 	private void refreshSum() {
+		sum = 0;
 		calculateSum();
 		this.refreshed = true;
 	}
