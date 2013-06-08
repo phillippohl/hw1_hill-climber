@@ -60,6 +60,7 @@ public class Set implements SetSpec {
 	@Override
 	public void replaceValue(int newValue, int index) {		
 		values[index] = newValue;
+		this.refreshed = false;
 	}
 
 	@Override
@@ -69,6 +70,7 @@ public class Set implements SetSpec {
 			index++;
 		}
 		counter--;
+		this.refreshed = false;
 	}
 	
 	@Override
