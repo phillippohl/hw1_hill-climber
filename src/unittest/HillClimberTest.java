@@ -33,12 +33,19 @@ public class HillClimberTest {
 	
 	@Test
 	public void testDefineInitialState() {
-		hc.defineInitialState();
 		assertEquals(1, hc.getSubsetOne().getLength());
 	}
 	
 	@Test
 	public void testPickRandomSolution() {
-		assertNotNull(hc.pickRandomSolution());
+		assertNotNull(hc.getRandomSolution());
+	}
+	
+	@Test
+	public void testComputeFitnessValue() {
+		int expectedDifference = hc.getSubsetOne().getValue(0) - hc.getSubsetTwo().getValue(0);
+		
+		hc.computeFitnessValue(hc.getSubsetOne(), hc.getSubsetTwo());
+		assertEquals(expectedDifference, hc.getFitnessValue());
 	}
 }

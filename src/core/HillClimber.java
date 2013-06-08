@@ -12,8 +12,11 @@ import interfaces.HillClimberSpec;
 public class HillClimber implements HillClimberSpec {
 	
 	private Set parentSet;
-	private Set subSet1;
-	private Set subSet2;
+	private Set subSetOne;
+	private Set subSetTwo;
+	private int fitnessValue;
+	private int randomSolutionSubsetOne;
+	private int randomSolutionSubsetTwo;
 
 	/**
 	 * 
@@ -25,40 +28,25 @@ public class HillClimber implements HillClimberSpec {
 
 	@Override
 	public void defineInitialState() {
-		subSet1 = new Set(parentSet.getLength()/2);
-		subSet2 = new Set(parentSet.getLength()/2);
+		subSetOne = new Set(parentSet.getLength()/2);
+		subSetTwo = new Set(parentSet.getLength()/2);
 		
 		for (int i = 0; i < parentSet.getLength(); i++) {
 			int randomNumber = (int) (Math.random()*20+1);
 			
 			if (i%2 == 0) {
-				subSet1.addValue(randomNumber);
+				subSetOne.addValue(randomNumber);
 			}
 			else {
-				subSet2.addValue(randomNumber);
+				subSetTwo.addValue(randomNumber);
 			}			
 		}
 	}
 	
 	@Override
-	public Set getSubsetOne() {
-		return subSet1;
-	}
-
-	@Override
-	public Set getSubsetTwo() {
-		return subSet2;
-	}
-
-	@Override
-	public int pickRandomSolution() {
-		return (int) (Math.random()*subSet1.getLength());
-	}
-
-	@Override
 	public void computeFitnessValue(Set s1, Set s2) {
-		// TODO Auto-generated method stub
-
+		// Fitness value = difference between the sums of the sets' values
+		fitnessValue = s1.getSum() - s2.getSum();
 	}
 
 	@Override
@@ -77,5 +65,34 @@ public class HillClimber implements HillClimberSpec {
 	public void updateSolution() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public Set getSubsetOne() {
+		return subSetOne;
+	}
+
+	@Override
+	public Set getSubsetTwo() {
+		return subSetTwo;
+	}
+
+	@Override
+	public int getFitnessValue() {
+		return fitnessValue;
+	}
+
+	@Override
+	public void pickRandomSolution() {
+		randomSolutionSubsetOne = subSetOne.getRandomMember();
+		randomSolutionSubsetTwo = subSetTwo.getRandomMember();
+	}
+
+	@Override
+	public int[] getRandomSolution() {
+		int[] resultArray = new int[2];
+		resultArray[0] = randomSolutionSubsetOne;
+		resultArray[1] = randomSolutionSubsetTwo;
+		return resultArray;
 	}
 }
