@@ -16,7 +16,7 @@ public interface HillClimberSpec {
 	void findMinimum();
 	void updateSolution();
 	void pickRandomSolution();
-	int[] getRandomSolution();
+	int[] getCurrentSolution();
 	Set getSubsetOne();
 	Set getSubsetTwo();
 	int getFitnessValue();

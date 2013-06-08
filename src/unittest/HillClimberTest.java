@@ -38,7 +38,7 @@ public class HillClimberTest {
 	
 	@Test
 	public void testPickRandomSolution() {
-		assertNotNull(hc.getRandomSolution());
+		assertNotNull(hc.getCurrentSolution());
 	}
 	
 	@Test

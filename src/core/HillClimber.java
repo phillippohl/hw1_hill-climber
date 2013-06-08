@@ -15,8 +15,8 @@ public class HillClimber implements HillClimberSpec {
 	private Set subSetOne;
 	private Set subSetTwo;
 	private int fitnessValue;
-	private int randomSolutionSubsetOne;
-	private int randomSolutionSubsetTwo;
+	private int currentSolutionSubsetOne;
+	private int currentSolutionSubsetTwo;
 
 	/**
 	 * 
@@ -84,15 +84,15 @@ public class HillClimber implements HillClimberSpec {
 
 	@Override
 	public void pickRandomSolution() {
-		randomSolutionSubsetOne = subSetOne.getRandomMember();
-		randomSolutionSubsetTwo = subSetTwo.getRandomMember();
+		currentSolutionSubsetOne = subSetOne.getRandomMember();
+		currentSolutionSubsetTwo = subSetTwo.getRandomMember();
 	}
 
 	@Override
-	public int[] getRandomSolution() {
+	public int[] getCurrentSolution() {
 		int[] resultArray = new int[2];
-		resultArray[0] = randomSolutionSubsetOne;
-		resultArray[1] = randomSolutionSubsetTwo;
+		resultArray[0] = currentSolutionSubsetOne;
+		resultArray[1] = currentSolutionSubsetTwo;
 		return resultArray;
 	}
 }
