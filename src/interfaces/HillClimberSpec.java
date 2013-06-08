@@ -11,11 +11,11 @@ import core.Set;
  */
 public interface HillClimberSpec {
 	void defineInitialState();
-	Set getSubsetOne();
-	Set getSubsetTwo();
-	void pickRandomSolution();
+	int pickRandomSolution();
 	void computeFitnessValue(Set s1, Set s2);
 	void startNeighborhoodSearch();
 	void findMinimum();
 	void updateSolution();
+	Set getSubsetOne();
+	Set getSubsetTwo();
 }

@@ -36,4 +36,9 @@ public class HillClimberTest {
 		hc.defineInitialState();
 		assertEquals(1, hc.getSubsetOne().getLength());
 	}
+	
+	@Test
+	public void testPickRandomSolution() {
+		assertNotNull(hc.pickRandomSolution());
+	}
 }

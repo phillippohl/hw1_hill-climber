@@ -51,9 +51,8 @@ public class HillClimber implements HillClimberSpec {
 	}
 
 	@Override
-	public void pickRandomSolution() {
-		// TODO Auto-generated method stub
-
+	public int pickRandomSolution() {
+		return (int) (Math.random()*subSet1.getLength());
 	}
 
 	@Override
