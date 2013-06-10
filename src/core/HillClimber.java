@@ -14,16 +14,17 @@ public class HillClimber implements HillClimberSpec {
 	private Set parentSet;
 	private Set subSetOne;
 	private Set subSetTwo;
-	private int fitnessValue;
 	private int currentSolutionSubsetOne;
 	private int currentSolutionSubsetTwo;
+	private int fitnessValue;
+	private int[] possibleSolutions;
 
 	/**
 	 * 
 	 */
 	public HillClimber(Set parentSet) {
 		this.parentSet = parentSet;
-		defineInitialState();
+		possibleSolutions = new int[7];
 	}
 
 	@Override
@@ -44,27 +45,57 @@ public class HillClimber implements HillClimberSpec {
 	}
 	
 	@Override
-	public void computeFitnessValue(Set s1, Set s2) {
+	public int computeFitnessValue(Set s1, Set s2) {
 		// Fitness value = difference between the sums of the sets' values
-		fitnessValue = s1.getSum() - s2.getSum();
+		this.fitnessValue = s1.getSum() - s2.getSum();
+		return s1.getSum() - s2.getSum();
 	}
 
 	@Override
 	public void startNeighborhoodSearch() {
-		// TODO Auto-generated method stub
+		computePossibleSolution();
+		//findMinimum(lowerSolution, upperSolution);
+	}
+	
+	@Override
+	public void computePossibleSolution() {
+		//Set newSubSetOne = subSetOne.getCopy();
+		//Set newSubSetTwo = subSetTwo.getCopy();
 
+		//updateSolution(newSubSetOne, newSubSetTwo, 0);
 	}
 
 	@Override
 	public void findMinimum() {
-		// TODO Auto-generated method stub
-
+		/*int currentFitness = computeFitnessValue(subSetOne, subSetTwo);
+		
+		while (true) {
+			System.out.println("Current solution: " + currentFitness);
+			
+			if (currentFitness <= lowerSolutionFitness && currentFitness <= upperSolutionFitness) {
+				System.out.println("Current solution is a local minimum.");
+				break;
+			}
+			else if (currentFitness > lowerSolutionFitness) {
+				updateSolution(subSetOne, subSetTwo, 0);
+			}
+			else if (currentFitness > upperSolutionFitness) {
+				updateSolution(subSetOne, subSetTwo, 1);
+			}
+		}*/
 	}
 
 	@Override
-	public void updateSolution() {
-		// TODO Auto-generated method stub
-
+	public void updateSolution(int indexSubsetOne, int indexSubsetTwo) {
+		int dummySubsetOne = subSetOne.getValue(indexSubsetOne);
+		int dummySubsetTwo = subSetTwo.getValue(indexSubsetTwo);
+		
+		subSetOne.replaceValue(dummySubsetTwo, indexSubsetOne);
+		subSetTwo.replaceValue(dummySubsetOne, indexSubsetTwo);
+		
+		currentSolutionSubsetOne = subSetOne.getValue(indexSubsetOne);
+		currentSolutionSubsetTwo = subSetTwo.getValue(indexSubsetTwo);
+		fitnessValue = computeFitnessValue(subSetOne, subSetTwo);
 	}
 	
 	@Override
