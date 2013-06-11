@@ -3,6 +3,7 @@
  */
 package core;
 
+import gui.OutputPane;
 import io.BasicInput;
 
 import java.io.IOException;
@@ -46,6 +47,8 @@ public class HillClimberImplementation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		OutputPane op = new OutputPane();
 	}
 	
 	private static void getInitialInformation() throws IOException {
