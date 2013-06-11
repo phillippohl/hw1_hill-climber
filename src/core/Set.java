@@ -21,7 +21,7 @@ public class Set implements SetSpec {
 		this.counter = 0;
 		this.length = length;
 		this.sum = 0;
-		this.values = new int[100];
+		this.values = new int[length];
 		this.refreshed = true;
 	}
 	
@@ -77,11 +77,11 @@ public class Set implements SetSpec {
 	public int getValue(int index) throws Exception {
 		if (index >= values.length) {
 			System.out.println("Current solution has no upper neighbor.");
-			throw new Exception("Reached upper limit.");
+			return values[index-1];
 		}
 		if (index < 0) {
 			System.out.println("Current solution has no lower neighbor.");
-			throw new Exception("Reached lower limit.");
+			return values[0];
 		}
 		return values[index];
 	}

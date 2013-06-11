@@ -22,4 +22,5 @@ public interface HillClimberSpec {
 	Set getSubsetTwo();
 	int getFitnessValue();
 	int[] getPossibleSolutions();
+	void printPossibleSolutions();
 }

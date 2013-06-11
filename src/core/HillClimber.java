@@ -18,6 +18,7 @@ public class HillClimber implements HillClimberSpec {
 	private int currentSolutionSubsetOne;
 	private int currentSolutionSubsetTwo;
 	private int[] possibleSolutions;
+	private boolean pending;
 
 	/**
 	 * 
@@ -25,6 +26,7 @@ public class HillClimber implements HillClimberSpec {
 	public HillClimber(Set parentSet) {
 		this.parentSet = parentSet;
 		possibleSolutions = new int[8];
+		pending = true;
 	}
 
 	@Override
@@ -42,6 +44,8 @@ public class HillClimber implements HillClimberSpec {
 				subSetTwo.addValue(randomNumber);
 			}			
 		}
+		
+		computeFitnessValue(subSetOne, subSetTwo);
 	}
 	
 	@Override
@@ -53,8 +57,11 @@ public class HillClimber implements HillClimberSpec {
 
 	@Override
 	public void startNeighborhoodSearch() throws Exception {
-		computePossibleSolutions();
-		findMinimum();
+		do {
+			computePossibleSolutions();
+			printPossibleSolutions();
+			findMinimum();
+		} while(pending == true);	
 	}
 	
 	@Override
@@ -62,6 +69,8 @@ public class HillClimber implements HillClimberSpec {
 		int counter = 0;
 		int loopIndexSubsetOne = 0;
 		int loopIndexSubsetTwo = 0;
+		
+		System.out.println("Initial solution: " + fitnessValue);
 						
 		for (int i = -1; i <= 1; i++) {
 			loopIndexSubsetOne = currentSolutionSubsetOne + i;
@@ -82,11 +91,14 @@ public class HillClimber implements HillClimberSpec {
 	@Override
 	public void findMinimum() throws Exception {
 		int localMinimumIndex = 0;
-		System.out.println("Current solution: " + fitnessValue);
+		
+		pending = false;
+		
 		for (int i = 0; i < possibleSolutions.length; i++) {		
-			if (possibleSolutions[i] < fitnessValue) {
+			if (Math.abs(possibleSolutions[i]) < Math.abs(fitnessValue)) {
 				localMinimumIndex = i;
 				fitnessValue = possibleSolutions[i];
+				pending = true;
 				System.out.println("Better solution at index " + i + ": " + possibleSolutions[i]);
 			}
 		}
@@ -148,8 +160,8 @@ public class HillClimber implements HillClimberSpec {
 	@Override
 	public int[] getCurrentSolution() throws Exception {
 		int[] resultArray = new int[2];
-		resultArray[0] = subSetOne.getValue(currentSolutionSubsetOne);
-		resultArray[1] = subSetTwo.getValue(currentSolutionSubsetTwo);
+		resultArray[0] = currentSolutionSubsetOne;
+		resultArray[1] = currentSolutionSubsetTwo;
 		return resultArray;
 	}
 	
@@ -171,5 +183,12 @@ public class HillClimber implements HillClimberSpec {
 	@Override
 	public int[] getPossibleSolutions() {
 		return possibleSolutions;
+	}
+
+	@Override
+	public void printPossibleSolutions() {
+		for (int i = 0; i< 7; i++) {
+			System.out.println(getPossibleSolutions()[i]);
+		}
 	}
 }
