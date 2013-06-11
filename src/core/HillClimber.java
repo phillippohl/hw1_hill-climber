@@ -54,7 +54,7 @@ public class HillClimber implements HillClimberSpec {
 	@Override
 	public void startNeighborhoodSearch() throws Exception {
 		computePossibleSolutions();
-		//findMinimum(lowerSolution, upperSolution);
+		findMinimum();
 	}
 	
 	@Override
