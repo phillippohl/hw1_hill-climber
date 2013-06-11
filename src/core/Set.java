@@ -7,7 +7,7 @@ import interfaces.SetSpec;
 
 /**
  * @author Phillipp Ohl
- * @version 0.1
+ * @version 0.2
  */
 public class Set implements SetSpec {
 	
@@ -15,7 +15,6 @@ public class Set implements SetSpec {
 	private int length;
 	private int sum;
 	private int[] values;
-	private int currentMemberIndex;
 	boolean refreshed;
 	
 	public Set(int length) {
@@ -23,7 +22,6 @@ public class Set implements SetSpec {
 		this.length = length;
 		this.sum = 0;
 		this.values = new int[100];
-		this.currentMemberIndex = 0;
 		this.refreshed = true;
 	}
 	
@@ -33,44 +31,7 @@ public class Set implements SetSpec {
 			sum += values[i];
 		}
 	}
-
-	@Override
-	public int getLength() {
-		return length;
-	}
-
-	@Override
-	public int getRandomMember() {
-		currentMemberIndex = (int) (Math.random()*length);
-		return currentMemberIndex;
-	}
 	
-	@Override
-	public int getLowerNeighbor() throws Exception {	
-		if (currentMemberIndex < 0) {
-			System.out.println("Current solution has no lower neighbor.");
-			throw new Exception("Reached lower limit.");
-		}
-		return values[currentMemberIndex-1];
-	}
-
-	@Override
-	public int getUpperNeighbor() throws Exception {
-		if (currentMemberIndex > values.length) {
-			System.out.println("Current solution has no upper neighbor.");
-			throw new Exception("Reached upper limit.");
-		}
-		return values[currentMemberIndex+1];
-	}
-
-	@Override
-	public int getSum() {
-		if (this.refreshed == false) {
-			refreshSum();
-		}
-		return sum;
-	}
-
 	@Override
 	public int addValue(int value) {
 		values[counter] = value;		
@@ -92,6 +53,24 @@ public class Set implements SetSpec {
 		}
 		counter--;
 		this.refreshed = false;
+	}
+
+	@Override
+	public int getLength() {
+		return length;
+	}
+
+	@Override
+	public int getRandomMember() {
+		return (int) (Math.random()*length);
+	}
+	
+	@Override
+	public int getSum() {
+		if (this.refreshed == false) {
+			refreshSum();
+		}
+		return sum;
 	}
 	
 	@Override
@@ -127,10 +106,5 @@ public class Set implements SetSpec {
 		copy.values = this.values.clone();
 		copy.refreshed = this.refreshed;
 		return copy;
-	}
-
-	@Override
-	public int getCurrentValueIndex() {
-		return currentMemberIndex;
 	}
 }

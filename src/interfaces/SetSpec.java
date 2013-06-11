@@ -8,7 +8,7 @@ import core.Set;
 
 /**
  * @author Phillipp Ohl
- * @version 0.1
+ * @version 0.2
  */
 public interface SetSpec {
 	void calculateSum();
@@ -21,7 +21,4 @@ public interface SetSpec {
 	int getValue(int index) throws Exception;
 	int[] getValues();
 	Set getCopy();
-	int getCurrentValueIndex();
-	int getLowerNeighbor() throws Exception;
-	int getUpperNeighbor() throws Exception;
 }
