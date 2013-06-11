@@ -91,7 +91,8 @@ public class Set implements SetSpec {
 		return this.values;
 	}
 	
-	private void refreshSum() {
+	@Override
+	public void refreshSum() {
 		sum = 0;
 		calculateSum();
 		this.refreshed = true;

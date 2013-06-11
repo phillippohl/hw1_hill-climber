@@ -20,5 +20,6 @@ public interface SetSpec {
 	int getSum();
 	int getValue(int index) throws Exception;
 	int[] getValues();
+	void refreshSum();
 	Set getCopy();
 }
