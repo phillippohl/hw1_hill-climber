@@ -20,12 +20,48 @@ public class HillClimberTest {
 
 	private HillClimber hc;
 	Set parentSet = new Set(10);
+	int[] expectedArray = new int[8];
 
 	@Before
 	public void initialize() {
 		hc = new HillClimber(parentSet);
 		hc.defineInitialState();
-		hc.pickRandomSolution();
+		setUpTestSolution();
+	}
+	
+	public void setUpTestSolution() {
+		expectedArray[0] = 4;
+		expectedArray[1] = 6;
+		expectedArray[2] = 8;
+		expectedArray[3] = 2;
+		expectedArray[4] = 6;
+		expectedArray[5] = 0;
+		expectedArray[6] = 2;
+		expectedArray[7] = 4;
+		
+		for (int i = 0; i < hc.getSubsetOne().getLength(); i++) {
+			hc.getSubsetOne().replaceValue(i+2, i);
+			/*
+			 * 0 --> 2
+			 * 1 --> 3
+			 * 2 --> 4
+			 * 3 --> 5
+			 * 4 --> 6
+			 */
+		}
+		
+		for (int i = 0; i < hc.getSubsetTwo().getLength(); i++) {
+			hc.getSubsetTwo().replaceValue(i, i);
+			/*
+			 * 0 --> 0
+			 * 1 --> 1
+			 * 2 --> 2
+			 * 3 --> 3
+			 * 4 --> 4
+			 */
+		}
+		
+		hc.setRandomSolution(3, 2);
 	}
 	
 	@After
@@ -77,84 +113,14 @@ public class HillClimberTest {
 	}
 	
 	@Test
-	public void testComputePossibleSolution() throws Exception {
-		int[] expectedArray = new int[8];
-		
-		expectedArray[0] = 4;
-		expectedArray[1] = 6;
-		expectedArray[2] = 8;
-		expectedArray[3] = 2;
-		expectedArray[4] = 6;
-		expectedArray[5] = 0;
-		expectedArray[6] = 2;
-		expectedArray[7] = 4;
-		
-		for (int i = 0; i < hc.getSubsetOne().getLength(); i++) {
-			hc.getSubsetOne().replaceValue(i+2, i);
-			/*
-			 * 0 --> 2
-			 * 1 --> 3
-			 * 2 --> 4
-			 * 3 --> 5
-			 * 4 --> 6
-			 */
-		}
-		
-		for (int i = 0; i < hc.getSubsetTwo().getLength(); i++) {
-			hc.getSubsetTwo().replaceValue(i, i);
-			/*
-			 * 0 --> 0
-			 * 1 --> 1
-			 * 2 --> 2
-			 * 3 --> 3
-			 * 4 --> 4
-			 */
-		}
-		
-		hc.setRandomSolution(3, 2);
-		
+	public void testComputePossibleSolution() throws Exception {		
 		hc.computePossibleSolutions();
 			
 		assertArrayEquals(expectedArray, hc.getPossibleSolutions());
 	}
 	
 	@Test
-	public void testFindMinimum() throws Exception {
-		int[] expectedArray = new int[8];
-		
-		expectedArray[0] = 4;
-		expectedArray[1] = 6;
-		expectedArray[2] = 8;
-		expectedArray[3] = 2;
-		expectedArray[4] = 6;
-		expectedArray[5] = 0;
-		expectedArray[6] = 2;
-		expectedArray[7] = 4;
-		
-		for (int i = 0; i < hc.getSubsetOne().getLength(); i++) {
-			hc.getSubsetOne().replaceValue(i+2, i);
-			/*
-			 * 0 --> 2
-			 * 1 --> 3
-			 * 2 --> 4
-			 * 3 --> 5
-			 * 4 --> 6
-			 */
-		}
-		
-		for (int i = 0; i < hc.getSubsetTwo().getLength(); i++) {
-			hc.getSubsetTwo().replaceValue(i, i);
-			/*
-			 * 0 --> 0
-			 * 1 --> 1
-			 * 2 --> 2
-			 * 3 --> 3
-			 * 4 --> 4
-			 */
-		}
-		
-		hc.setRandomSolution(3, 2);
-		
+	public void testFindMinimum() throws Exception {	
 		hc.computePossibleSolutions();
 		hc.findMinimum();
 				
