@@ -71,10 +71,8 @@ public class HillClimber implements HillClimberSpec {
 					continue;
 				}
 				else {			
-					loopIndexSubsetTwo = currentSolutionSubsetTwo + j;
-					
+					loopIndexSubsetTwo = currentSolutionSubsetTwo + j;					
 					possibleSolutions[counter] = computeFitnessValue(subSetOne, subSetTwo)-2*(subSetOne.getValue(loopIndexSubsetOne) - subSetTwo.getValue(loopIndexSubsetTwo));
-					//System.out.println("fitness" + counter + ": " + possibleSolutions[counter]);
 					counter++;
 				}			
 			}
@@ -82,23 +80,45 @@ public class HillClimber implements HillClimberSpec {
 	}
 
 	@Override
-	public void findMinimum() {
-		/*int currentFitness = computeFitnessValue(subSetOne, subSetTwo);
+	public void findMinimum() throws Exception {
+		int localMinimumIndex = 0;
+		System.out.println("Current solution: " + fitnessValue);
+		for (int i = 0; i < possibleSolutions.length; i++) {		
+			if (possibleSolutions[i] < fitnessValue) {
+				localMinimumIndex = i;
+				fitnessValue = possibleSolutions[i];
+				System.out.println("Better solution at index " + i + ": " + possibleSolutions[i]);
+			}
+		}
 		
-		while (true) {
-			System.out.println("Current solution: " + currentFitness);
-			
-			if (currentFitness <= lowerSolutionFitness && currentFitness <= upperSolutionFitness) {
-				System.out.println("Current solution is a local minimum.");
-				break;
-			}
-			else if (currentFitness > lowerSolutionFitness) {
-				updateSolution(subSetOne, subSetTwo, 0);
-			}
-			else if (currentFitness > upperSolutionFitness) {
-				updateSolution(subSetOne, subSetTwo, 1);
-			}
-		}*/
+		switch (localMinimumIndex) {
+		case 0:
+			updateSolution(currentSolutionSubsetOne-1, currentSolutionSubsetTwo-1);
+			break;
+		case 1:
+			updateSolution(currentSolutionSubsetOne-1, currentSolutionSubsetTwo);
+			break;
+		case 2:
+			updateSolution(currentSolutionSubsetOne-1, currentSolutionSubsetTwo+1);
+			break;
+		case 3:
+			updateSolution(currentSolutionSubsetOne, currentSolutionSubsetTwo-1);
+			break;
+		case 4:
+			updateSolution(currentSolutionSubsetOne, currentSolutionSubsetTwo+1);
+			break;
+		case 5:
+			updateSolution(currentSolutionSubsetOne+1, currentSolutionSubsetTwo-1);
+			break;
+		case 6:
+			updateSolution(currentSolutionSubsetOne+1, currentSolutionSubsetTwo);
+			break;
+		case 7:
+			updateSolution(currentSolutionSubsetOne+1, currentSolutionSubsetTwo+1);
+			break;
+		default:
+			break;
+		}	
 	}
 
 	@Override

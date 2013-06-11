@@ -14,7 +14,7 @@ public interface HillClimberSpec {
 	int computeFitnessValue(Set s1, Set s2);
 	void startNeighborhoodSearch() throws Exception;
 	void computePossibleSolutions() throws Exception;
-	void findMinimum();
+	void findMinimum() throws Exception;
 	void updateSolution(int indexSubsetOne, int indexSubsetTwo) throws Exception;
 	void pickRandomSolution();
 	int[] getCurrentSolution() throws Exception;
