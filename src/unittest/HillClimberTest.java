@@ -25,7 +25,7 @@ public class HillClimberTest {
 	public void initialize() {
 		hc = new HillClimber(parentSet);
 		hc.defineInitialState();
-		//hc.pickRandomSolution();
+		hc.pickRandomSolution();
 	}
 	
 	@After
@@ -39,17 +39,17 @@ public class HillClimberTest {
 	}
 	
 	@Test
-	public void testPickRandomSolution() {
+	public void testPickRandomSolution() throws Exception {
 		assertNotNull(hc.getCurrentSolution());
 	}
 	
 	@Test
-	public void testGetCurrentSolution() {
+	public void testGetCurrentSolution() throws Exception {
 		assertNotNull(hc.getCurrentSolution());
 	}
 	
 	@Test
-	public void testComputeFitnessValue() {
+	public void testComputeFitnessValue() throws Exception {
 		int expectedDifference = 0;
 		
 		for (int i = 0; i <  hc.getSubsetOne().getLength(); i++) {
@@ -78,21 +78,57 @@ public class HillClimberTest {
 	
 	@Test
 	public void testComputePossibleSolution() throws Exception {
+		int[] expectedArray = new int[8];
+		
+		expectedArray[0] = 4;
+		expectedArray[1] = 6;
+		expectedArray[2] = 8;
+		expectedArray[3] = 2;
+		expectedArray[4] = 6;
+		expectedArray[5] = 0;
+		expectedArray[6] = 2;
+		expectedArray[7] = 4;
+		
+		for (int i = 0; i < hc.getSubsetOne().getLength(); i++) {
+			hc.getSubsetOne().replaceValue(i+2, i);
+			/*
+			 * 0 --> 2
+			 * 1 --> 3
+			 * 2 --> 4
+			 * 3 --> 5
+			 * 4 --> 6
+			 */
+		}
+		
+		for (int i = 0; i < hc.getSubsetTwo().getLength(); i++) {
+			hc.getSubsetTwo().replaceValue(i, i);
+			/*
+			 * 0 --> 0
+			 * 1 --> 1
+			 * 2 --> 2
+			 * 3 --> 3
+			 * 4 --> 4
+			 */
+		}
+		
+		hc.setRandomSolution(3, 2);
+		
+		hc.computePossibleSolutions();
+			
+		assertArrayEquals(expectedArray, hc.getPossibleSolutions());
+	}
+	
+	@Test
+	public void testFindMinimum() {
 		int expectedDifference = 0;
 		
-		Set s1 = new Set(5);
-		Set s2 = new Set(5);
+		for (int i = 0; i < hc.getSubsetOne().getLength(); i++) {
+			hc.getSubsetOne().replaceValue(i+2, i);
+		}
 		
-		s1.addValue(1);
-		s1.addValue(5);
-		s1.addValue(6);
-		s1.addValue(7);
-		s1.addValue(4);
-		s2.addValue(2);
-		s2.addValue(0);
-		s2.addValue(3);
-		s2.addValue(4);
-		s2.addValue(1);
+		for (int i = 0; i < hc.getSubsetTwo().getLength(); i++) {
+			hc.getSubsetTwo().replaceValue(i, i);
+		}
 		
 		/*for (int i = 0; i < s1.getLength(); i++) {
 			s1.addValue(hc.getSubsetOne().getValue(i));
@@ -105,12 +141,12 @@ public class HillClimberTest {
 		s1.replaceValue(s2.getValue(s2.getCurrentValueIndex()-1), s1.getCurrentValueIndex()-1);
 		s2.replaceValue(s1.getValue(s1.getCurrentValueIndex()-1), s2.getCurrentValueIndex()-1);*/
 		
-		s1.calculateSum();
-		s2.calculateSum();
-		expectedDifference = s1.getSum() - s2.getSum();
+		hc.getSubsetOne().calculateSum();
+		hc.getSubsetTwo().calculateSum();
+		expectedDifference = hc.getSubsetOne().getSum() - hc.getSubsetTwo().getSum();
 		
 		//System.out.println("expectedDifference: " + expectedDifference);
 		
-		assertEquals(expectedDifference, hc.computePossibleSolution());
+		//assertEquals(expectedDifference, hc.computePossibleSolutions());
 	}
 }

@@ -18,7 +18,7 @@ public interface SetSpec {
 	int getLength();
 	int getRandomMember();
 	int getSum();
-	int getValue(int index);
+	int getValue(int index) throws Exception;
 	int[] getValues();
 	Set getCopy();
 	int getCurrentValueIndex();

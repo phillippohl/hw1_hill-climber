@@ -38,20 +38,32 @@ public class SetTest {
 	
 	@Test
 	public void testAddValue() {
-		assertEquals(5, s.getValue(s.addValue(5)));
-		assertEquals(15, s.getValue(s.addValue(15)));
+		try {
+			assertEquals(5, s.getValue(s.addValue(5)));
+			assertEquals(15, s.getValue(s.addValue(15)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	@Test
 	public void testReplaceValue() {
 		s.replaceValue(25, 0);
-		assertEquals(25, s.getValue(0));
+		try {
+			assertEquals(25, s.getValue(0));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	public void testDeleteValue() {
 		s.deleteValue(0);
-		assertEquals(15, s.getValue(0));
+		try {
+			assertEquals(15, s.getValue(0));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

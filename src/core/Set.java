@@ -42,7 +42,7 @@ public class Set implements SetSpec {
 	@Override
 	public int getRandomMember() {
 		currentMemberIndex = (int) (Math.random()*length);
-		return values[currentMemberIndex];
+		return currentMemberIndex;
 	}
 	
 	@Override
@@ -95,7 +95,15 @@ public class Set implements SetSpec {
 	}
 	
 	@Override
-	public int getValue(int index) {
+	public int getValue(int index) throws Exception {
+		if (index >= values.length) {
+			System.out.println("Current solution has no upper neighbor.");
+			throw new Exception("Reached upper limit.");
+		}
+		if (index < 0) {
+			System.out.println("Current solution has no lower neighbor.");
+			throw new Exception("Reached lower limit.");
+		}
 		return values[index];
 	}
 	
