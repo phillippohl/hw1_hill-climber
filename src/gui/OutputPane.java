@@ -83,7 +83,12 @@ public class OutputPane {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetLabels();
-				sizeOfParentSet = Integer.parseInt(inputField.getText());
+				try {
+					sizeOfParentSet = Integer.parseInt(inputField.getText());
+				} catch (NumberFormatException nfe) {
+					nfe.printStackTrace();
+					showMissingInputValueDialog();
+				}
 				HillClimberImplementation.startAlgorithm();
 	         }
 	    });
@@ -147,6 +152,13 @@ public class OutputPane {
 		labelSolutionX7.setText("");
 		labelSolutionX8.setText("");
 		currentSolutionValue.setText("");
+	}
+	
+	public void showMissingInputValueDialog() {
+		JOptionPane.showMessageDialog(frame,
+			    "Please specify a feasible value.",
+			    "Message",
+			    JOptionPane.WARNING_MESSAGE);
 	}
 	
 	public void showLocalMinimumDialog() {

@@ -51,7 +51,7 @@ public class HillClimberImplementation extends Thread {
 	}
 	
 	private static void getInitialInformation() throws IOException {
-		parentSetLength = gui.getSizeOfParentSet();
+		parentSetLength = gui.getSizeOfParentSet();	
 	}
 	
 	private static void startNeighborhoodSearch() throws Exception {
