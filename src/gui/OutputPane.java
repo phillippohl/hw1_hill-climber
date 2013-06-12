@@ -74,6 +74,7 @@ public class OutputPane {
 		button = new JButton("Start search");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				resetLabels();
 				HillClimberImplementation.startAlgorithm();
 	         }
 	    });      
@@ -119,5 +120,17 @@ public class OutputPane {
 	
 	public void setCurrentSolutionLabel(int currentSolutionLabel) {
 		currentSolutionValue.setText(""+currentSolutionLabel);
+	}
+	
+	public void resetLabels() {
+		labelSolutionX1.setText("");
+		labelSolutionX2.setText("");
+		labelSolutionX3.setText("");
+		labelSolutionX4.setText("");
+		labelSolutionX5.setText("");
+		labelSolutionX6.setText("");
+		labelSolutionX7.setText("");
+		labelSolutionX8.setText("");
+		currentSolutionValue.setText("");
 	}
 }

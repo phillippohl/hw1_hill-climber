@@ -31,25 +31,21 @@ public class HillClimberImplementation extends Thread {
 			Set parent = new Set(parentSetLength);
 			hc = new HillClimber(parent);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		hc.defineInitialState();
-		
-		
+				
 		try {
 			hc.pickRandomSolution();
 			System.out.println("Random pick subset1: " + hc.getCurrentSolution()[0] + '\n' + "Random pick subset2: " + hc.getCurrentSolution()[1]);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		try {
 			startNeighborhoodSearchAuto();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -66,12 +62,13 @@ public class HillClimberImplementation extends Thread {
 			  			Thread.sleep(2000);
 			  			
 						hc.computePossibleSolutions();
-						if (hc.getPending() == false) {
-							break;
-						}
 						
 						setLabels();
 						hc.printPossibleSolutions();
+						
+						if (hc.getPending() == false) {
+							break;
+						}
 						
 						hc.findMinimum();				
 					} while(hc.getPending() == true);
@@ -96,7 +93,6 @@ public class HillClimberImplementation extends Thread {
 	
 	private static void setLabels() {
 		int[] labelInput = hc.getPossibleSolutions();
-
 		gui.setLabels(labelInput[0], labelInput[1], labelInput[2], labelInput[3], labelInput[4], labelInput[5], labelInput[6], labelInput[7]);
 		gui.setCurrentSolutionLabel(hc.getFitnessValue());
 	}
