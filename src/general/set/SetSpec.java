@@ -1,6 +1,5 @@
-package hillclimber.interfaces;
+package general.set;
 
-import hillclimber.core.Set;
 
 /**
  * 

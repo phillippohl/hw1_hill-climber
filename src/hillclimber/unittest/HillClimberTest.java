@@ -4,8 +4,8 @@
 package hillclimber.unittest;
 
 import static org.junit.Assert.*;
+import general.set.Set;
 import hillclimber.core.HillClimber;
-import hillclimber.core.Set;
 
 import org.junit.After;
 import org.junit.Before;

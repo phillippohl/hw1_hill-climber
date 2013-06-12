@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hillclimber.interfaces;
+package simulatedannealing.interfaces;
 
 import general.set.Set;
 
@@ -9,7 +9,7 @@ import general.set.Set;
  * @author Phillipp Ohl
  * @version 0.1
  */
-public interface HillClimberSpec {
+public interface SimulatedAnnealingSpec {
 	void defineInitialState();
 	int computeFitnessValue(Set s1, Set s2);
 	void startNeighborhoodSearch() throws Exception;

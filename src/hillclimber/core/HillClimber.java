@@ -3,6 +3,7 @@
  */
 package hillclimber.core;
 
+import general.set.Set;
 import hillclimber.interfaces.HillClimberSpec;
 
 /**

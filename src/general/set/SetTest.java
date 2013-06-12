@@ -1,10 +1,9 @@
 /**
  * 
  */
-package hillclimber.unittest;
+package general.set;
 
 import static org.junit.Assert.*;
-import hillclimber.core.Set;
 
 import org.junit.After;
 import org.junit.Before;

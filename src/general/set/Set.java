@@ -1,9 +1,8 @@
 /**
  * 
  */
-package hillclimber.core;
+package general.set;
 
-import hillclimber.interfaces.SetSpec;
 
 /**
  * @author Phillipp Ohl
