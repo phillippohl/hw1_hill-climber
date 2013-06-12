@@ -44,7 +44,7 @@ public class HillClimberImplementation extends Thread {
 		}
 		
 		try {
-			startNeighborhoodSearchAuto();
+			startNeighborhoodSearch();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,7 +54,7 @@ public class HillClimberImplementation extends Thread {
 		parentSetLength = 100;//(int) BasicInput.getIntegerInput("Specify the parent set's length (only 100, 500 and 1000 are permitted): ");
 	}
 	
-	private static void startNeighborhoodSearchAuto() throws Exception {
+	private static void startNeighborhoodSearch() throws Exception {
 		new Thread() {
 			@Override public void run() {
 				try {
@@ -77,18 +77,6 @@ public class HillClimberImplementation extends Thread {
 				}
 			}
 	    }.start();
-	}
-	
-	private static void startNeighborhoodSearch() throws Exception {
-		do {
-			hc.computePossibleSolutions();
-			if (hc.getPending() == false) {
-				break;
-			}
-			setLabels();
-			hc.findMinimum();
-			hc.printPossibleSolutions();
-		} while(hc.getPending() == true);	
 	}
 	
 	private static void setLabels() {
