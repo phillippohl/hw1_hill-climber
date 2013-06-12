@@ -19,6 +19,7 @@ public class HillClimber implements HillClimberSpec {
 	private int currentSolutionSubsetTwo;
 	private int[] possibleSolutions;
 	private boolean pending;
+	private boolean reachedLocalMinimum;
 	private int numberOfRuns;
 
 	/**
@@ -28,6 +29,7 @@ public class HillClimber implements HillClimberSpec {
 		this.parentSet = parentSet;
 		possibleSolutions = new int[8];
 		pending = true;
+		reachedLocalMinimum = true;
 		numberOfRuns = 0;
 	}
 
@@ -105,6 +107,7 @@ public class HillClimber implements HillClimberSpec {
 		int localMinimumIndex = 0;
 		
 		pending = false;
+		reachedLocalMinimum = true;
 		
 		System.out.println('\n' + "##### Run: " + numberOfRuns + " ######");
 		
@@ -113,6 +116,7 @@ public class HillClimber implements HillClimberSpec {
 				localMinimumIndex = i;
 				fitnessValue = possibleSolutions[i];
 				pending = true;	
+				reachedLocalMinimum = false;
 				System.out.println("Better solution at index " + i + ": " + possibleSolutions[i]);
 			}
 		}
@@ -201,6 +205,10 @@ public class HillClimber implements HillClimberSpec {
 	
 	public boolean getPending() {
 		return pending;
+	}
+	
+	public boolean getReachedLocalMinimum() {
+		return reachedLocalMinimum;
 	}
 
 	@Override

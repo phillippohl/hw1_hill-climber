@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import core.HillClimberImplementation;
 
@@ -78,7 +79,7 @@ public class OutputPane {
 				HillClimberImplementation.startAlgorithm();
 	         }
 	    });      
-		
+			    
 		frame.setLayout(new GridLayout(10, 2));
 		
 		frame.getContentPane().add(labelX1);
@@ -132,5 +133,16 @@ public class OutputPane {
 		labelSolutionX7.setText("");
 		labelSolutionX8.setText("");
 		currentSolutionValue.setText("");
+	}
+	
+	public void showLocalMinimumDialog() {
+		JOptionPane.showMessageDialog(frame,
+			    "Cannot reach a better local minimum.",
+			    "Message",
+			    JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void showGlobalMinimumDialog() {
+		JOptionPane.showMessageDialog(frame, "Reached global minimum.");
 	}
 }

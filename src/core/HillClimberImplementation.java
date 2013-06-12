@@ -51,7 +51,7 @@ public class HillClimberImplementation extends Thread {
 	}
 	
 	private static void getInitialInformation() throws IOException {
-		parentSetLength = 100;//(int) BasicInput.getIntegerInput("Specify the parent set's length (only 100, 500 and 1000 are permitted): ");
+		parentSetLength = 1000;//(int) BasicInput.getIntegerInput("Specify the parent set's length (only 100, 500 and 1000 are permitted): ");
 	}
 	
 	private static void startNeighborhoodSearch() throws Exception {
@@ -70,7 +70,14 @@ public class HillClimberImplementation extends Thread {
 							break;
 						}
 						
-						hc.findMinimum();				
+						hc.findMinimum();	
+						
+						if (hc.getReachedLocalMinimum() == true) {
+							gui.showLocalMinimumDialog();
+						}	
+						if (hc.getFitnessValue() == 0) {
+							gui.showGlobalMinimumDialog();
+						}						
 					} while(hc.getPending() == true);
 				} catch ( InterruptedException e ) { e.printStackTrace(); } catch (Exception e) {
 				  e.printStackTrace();
