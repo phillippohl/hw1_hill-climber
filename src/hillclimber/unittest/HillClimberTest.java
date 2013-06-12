@@ -1,16 +1,16 @@
 /**
  * 
  */
-package unittest;
+package hillclimber.unittest;
 
 import static org.junit.Assert.*;
+import hillclimber.core.HillClimber;
+import hillclimber.core.Set;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.HillClimber;
-import core.Set;
 
 /**
  * @author Phillipp Ohl

@@ -1,9 +1,9 @@
 /**
  * 
  */
-package core;
+package hillclimber.core;
 
-import gui.OutputPane;
+import hillclimber.gui.OutputPane;
 
 import java.io.IOException;
 

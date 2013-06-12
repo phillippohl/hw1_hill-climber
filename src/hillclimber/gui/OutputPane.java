@@ -1,7 +1,9 @@
 /**
  * 
  */
-package gui;
+package hillclimber.gui;
+
+import hillclimber.core.HillClimberImplementation;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import core.HillClimberImplementation;
 
 /**
  * @author Phillipp Ohl

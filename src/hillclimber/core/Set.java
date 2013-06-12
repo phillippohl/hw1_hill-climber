@@ -1,9 +1,9 @@
 /**
  * 
  */
-package core;
+package hillclimber.core;
 
-import interfaces.SetSpec;
+import hillclimber.interfaces.SetSpec;
 
 /**
  * @author Phillipp Ohl
