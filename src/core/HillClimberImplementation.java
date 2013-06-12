@@ -51,7 +51,7 @@ public class HillClimberImplementation extends Thread {
 	}
 	
 	private static void getInitialInformation() throws IOException {
-		parentSetLength = 1000;//(int) BasicInput.getIntegerInput("Specify the parent set's length (only 100, 500 and 1000 are permitted): ");
+		parentSetLength = gui.getSizeOfParentSet();
 	}
 	
 	private static void startNeighborhoodSearch() throws Exception {

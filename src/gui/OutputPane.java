@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import core.HillClimberImplementation;
 
@@ -39,7 +40,10 @@ public class OutputPane {
 	private JLabel labelSolutionX8;
 	private JLabel currentSolution;
 	private JLabel currentSolutionValue;
+	private JLabel sizeOfParentSetLabel;
 	private JButton button;
+	private JTextField inputField;
+	private int sizeOfParentSet;
 	
 	/**
 	 * 
@@ -52,6 +56,7 @@ public class OutputPane {
 	}
 
 	private void setComponents() {
+		sizeOfParentSetLabel = new JLabel("Specify the parent set's size: ");
 		labelX1 = new JLabel("x1 = ");
 		labelX2 = new JLabel("x2 = ");
 		labelX3 = new JLabel("x3 = ");
@@ -60,7 +65,7 @@ public class OutputPane {
 		labelX6 = new JLabel("x6 = ");
 		labelX7 = new JLabel("x7 = ");
 		labelX8 = new JLabel("x8 = ");
-		currentSolution = new JLabel("Local minimum = ");
+		currentSolution = new JLabel("Local minimum = ");	
 		
 		labelSolutionX1 = new JLabel();
 		labelSolutionX2 = new JLabel();
@@ -72,16 +77,21 @@ public class OutputPane {
 		labelSolutionX8 = new JLabel();
 		currentSolutionValue = new JLabel();
 		
+		inputField = new JTextField();
+		
 		button = new JButton("Start search");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetLabels();
+				sizeOfParentSet = Integer.parseInt(inputField.getText());
 				HillClimberImplementation.startAlgorithm();
 	         }
-	    });      
+	    });
 			    
-		frame.setLayout(new GridLayout(10, 2));
+		frame.setLayout(new GridLayout(11, 2));
 		
+		frame.getContentPane().add(sizeOfParentSetLabel);
+		frame.getContentPane().add(inputField);
 		frame.getContentPane().add(labelX1);
 		frame.getContentPane().add(labelSolutionX1);
 		frame.getContentPane().add(labelX2);
@@ -106,6 +116,10 @@ public class OutputPane {
 	private void showPane() {
 		frame.pack();
 		frame.setVisible(true);
+	}
+	
+	public int getSizeOfParentSet() {
+		return sizeOfParentSet;
 	}
 	
 	public void setLabels(int label1, int label2, int label3, int label4, int label5, int label6, int label7, int label8) {
