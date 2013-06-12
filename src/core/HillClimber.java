@@ -19,6 +19,7 @@ public class HillClimber implements HillClimberSpec {
 	private int currentSolutionSubsetTwo;
 	private int[] possibleSolutions;
 	private boolean pending;
+	private int numberOfRuns;
 
 	/**
 	 * 
@@ -27,6 +28,7 @@ public class HillClimber implements HillClimberSpec {
 		this.parentSet = parentSet;
 		possibleSolutions = new int[8];
 		pending = true;
+		numberOfRuns = 0;
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class HillClimber implements HillClimberSpec {
 	@Override
 	public int computeFitnessValue(Set s1, Set s2) {
 		// Fitness value = difference between the sums of the sets' values
-		this.fitnessValue = s1.getSum() - s2.getSum();
+		fitnessValue = s1.getSum() - s2.getSum();
 		return s1.getSum() - s2.getSum();
 	}
 
@@ -59,6 +61,9 @@ public class HillClimber implements HillClimberSpec {
 	public void startNeighborhoodSearch() throws Exception {
 		do {
 			computePossibleSolutions();
+			if (pending == false) {
+				break;
+			}
 			printPossibleSolutions();
 			findMinimum();
 		} while(pending == true);	
@@ -70,22 +75,29 @@ public class HillClimber implements HillClimberSpec {
 		int loopIndexSubsetOne = 0;
 		int loopIndexSubsetTwo = 0;
 		
-		System.out.println("Initial solution: " + fitnessValue);
-						
-		for (int i = -1; i <= 1; i++) {
-			loopIndexSubsetOne = currentSolutionSubsetOne + i;
-			
-			for (int j = -1; j <= 1; j++) {
-				if (i == 0 && j == 0) {
-					continue;
+		System.out.println("Current solution: " + fitnessValue);
+		
+		if (fitnessValue == 0) {
+			pending = false;
+			System.out.println("Current solution is optimal.");
+		}
+		else {
+			for (int i = -1; i <= 1; i++) {
+				loopIndexSubsetOne = currentSolutionSubsetOne + i;
+				
+				for (int j = -1; j <= 1; j++) {
+					if (i == 0 && j == 0) {
+						continue;
+					}
+					else {			
+						loopIndexSubsetTwo = currentSolutionSubsetTwo + j;					
+						possibleSolutions[counter] = computeFitnessValue(subSetOne, subSetTwo)-2*(subSetOne.getValue(loopIndexSubsetOne) - subSetTwo.getValue(loopIndexSubsetTwo));
+						counter++;
+					}			
 				}
-				else {			
-					loopIndexSubsetTwo = currentSolutionSubsetTwo + j;					
-					possibleSolutions[counter] = computeFitnessValue(subSetOne, subSetTwo)-2*(subSetOne.getValue(loopIndexSubsetOne) - subSetTwo.getValue(loopIndexSubsetTwo));
-					counter++;
-				}			
 			}
 		}
+		numberOfRuns++;
 	}
 
 	@Override
@@ -94,11 +106,13 @@ public class HillClimber implements HillClimberSpec {
 		
 		pending = false;
 		
+		System.out.println('\n' + "##### Run: " + numberOfRuns + " ######");
+		
 		for (int i = 0; i < possibleSolutions.length; i++) {		
 			if (Math.abs(possibleSolutions[i]) < Math.abs(fitnessValue)) {
 				localMinimumIndex = i;
 				fitnessValue = possibleSolutions[i];
-				pending = true;
+				pending = true;	
 				System.out.println("Better solution at index " + i + ": " + possibleSolutions[i]);
 			}
 		}
@@ -184,10 +198,14 @@ public class HillClimber implements HillClimberSpec {
 	public int[] getPossibleSolutions() {
 		return possibleSolutions;
 	}
+	
+	public boolean getPending() {
+		return pending;
+	}
 
 	@Override
 	public void printPossibleSolutions() {
-		for (int i = 0; i< 7; i++) {
+		for (int i = 0; i < possibleSolutions.length; i++) {
 			System.out.println(getPossibleSolutions()[i]);
 		}
 	}

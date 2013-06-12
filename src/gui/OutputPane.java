@@ -3,16 +3,19 @@
  */
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import core.HillClimberImplementation;
+
 /**
- * @author Phillipp
- *
+ * @author Phillipp Ohl
+ * @version 0.1
  */
 public class OutputPane {
 
@@ -33,6 +36,8 @@ public class OutputPane {
 	private JLabel labelSolutionX6;
 	private JLabel labelSolutionX7;
 	private JLabel labelSolutionX8;
+	private JLabel currentSolution;
+	private JLabel currentSolutionValue;
 	private JButton button;
 	
 	/**
@@ -54,6 +59,7 @@ public class OutputPane {
 		labelX6 = new JLabel("x6 = ");
 		labelX7 = new JLabel("x7 = ");
 		labelX8 = new JLabel("x8 = ");
+		currentSolution = new JLabel("Local minimum = ");
 		
 		labelSolutionX1 = new JLabel();
 		labelSolutionX2 = new JLabel();
@@ -63,10 +69,16 @@ public class OutputPane {
 		labelSolutionX6 = new JLabel();
 		labelSolutionX7 = new JLabel();
 		labelSolutionX8 = new JLabel();
+		currentSolutionValue = new JLabel();
 		
-		button = new JButton("Compute");
+		button = new JButton("Start search");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HillClimberImplementation.startAlgorithm();
+	         }
+	    });      
 		
-		frame.setLayout(new GridLayout(9, 2));
+		frame.setLayout(new GridLayout(10, 2));
 		
 		frame.getContentPane().add(labelX1);
 		frame.getContentPane().add(labelSolutionX1);
@@ -84,11 +96,28 @@ public class OutputPane {
 		frame.getContentPane().add(labelSolutionX7);
 		frame.getContentPane().add(labelX8);
 		frame.getContentPane().add(labelSolutionX8);
+		frame.getContentPane().add(currentSolution);
+		frame.getContentPane().add(currentSolutionValue);
 		frame.getContentPane().add(button);
 	}
 	
 	private void showPane() {
 		frame.pack();
 		frame.setVisible(true);
+	}
+	
+	public void setLabels(int label1, int label2, int label3, int label4, int label5, int label6, int label7, int label8) {
+		labelSolutionX1.setText(""+label1);
+		labelSolutionX2.setText(""+label2);
+		labelSolutionX3.setText(""+label3);
+		labelSolutionX4.setText(""+label4);
+		labelSolutionX5.setText(""+label5);
+		labelSolutionX6.setText(""+label6);
+		labelSolutionX7.setText(""+label7);
+		labelSolutionX8.setText(""+label8);
+	}
+	
+	public void setCurrentSolutionLabel(int currentSolutionLabel) {
+		currentSolutionValue.setText(""+currentSolutionLabel);
 	}
 }
