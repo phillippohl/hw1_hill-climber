@@ -50,13 +50,18 @@ public class HillClimber implements HillClimberSpec {
 			}			
 		}
 		
-		computeFitnessValue(subSetOne, subSetTwo);
+		setFitnessValue(subSetOne, subSetTwo);
 	}
 	
 	@Override
-	public int computeFitnessValue(Set s1, Set s2) {
+	public void setFitnessValue(Set s1, Set s2) {
 		// Fitness value = difference between the sums of the sets' values
 		fitnessValue = s1.getSum() - s2.getSum();
+	}
+
+	@Override
+	public int computeFitnessValue(Set s1, Set s2) {
+		// Fitness value = difference between the sums of the sets' values
 		return s1.getSum() - s2.getSum();
 	}
 
@@ -162,7 +167,7 @@ public class HillClimber implements HillClimberSpec {
 		
 		currentSolutionSubsetOne = indexSubsetOne;
 		currentSolutionSubsetTwo = indexSubsetTwo;
-		fitnessValue = computeFitnessValue(subSetOne, subSetTwo);
+		setFitnessValue(subSetOne, subSetTwo);
 	}
 
 	@Override
