@@ -19,11 +19,12 @@ public class SimulatedAnnealing implements SimulatedAnnealingSpec {
 	private int currentSolutionSubsetOne;
 	private int currentSolutionSubsetTwo;
 	private int[] possibleSolutions;
-	private boolean pending;
+	private int pending;
 	private boolean reachedLocalMinimum;
 	private int numberOfRuns;
-	private int TEMPERATURE = 10000;
-	private int delta;
+	private double temperature = 1000;
+	private int deltaEnergy;
+	private int acceptedValues;
 	
 	/**
 	 * 
@@ -31,9 +32,11 @@ public class SimulatedAnnealing implements SimulatedAnnealingSpec {
 	public SimulatedAnnealing(Set parentSet) {
 		this.parentSet = parentSet;
 		possibleSolutions = new int[8];
-		pending = true;
+		pending = 0;
 		reachedLocalMinimum = true;
 		numberOfRuns = 0;
+		deltaEnergy = 0;
+		acceptedValues = 0;
 	}
 
 	@Override
@@ -71,12 +74,16 @@ public class SimulatedAnnealing implements SimulatedAnnealingSpec {
 	public void startNeighborhoodSearch() throws Exception {
 		do {
 			computePossibleSolutions();
-			if (pending == false) {
+			if (pending == 90) {
 				break;
 			}
 			printPossibleSolutions();
 			findMinimum();
-		} while(pending == true);	
+			if (acceptedValues == 25) {
+				coolingTemperature();
+				acceptedValues = 0;
+			}		
+		} while(pending < 100);	
 	}
 
 	@Override
@@ -85,10 +92,10 @@ public class SimulatedAnnealing implements SimulatedAnnealingSpec {
 		int loopIndexSubsetOne = 0;
 		int loopIndexSubsetTwo = 0;
 		
-		//System.out.println("Current solution: " + fitnessValue);
+		System.out.println("Current solution: " + fitnessValue);
 		
 		if (fitnessValue == 0) {
-			pending = false;
+			pending = 100;
 			//System.out.println("Current solution is optimal.");
 		}
 		else {
@@ -109,12 +116,26 @@ public class SimulatedAnnealing implements SimulatedAnnealingSpec {
 		}
 		numberOfRuns++;
 	}
+	
+	// Wahrscheinlichkeit der Übernahme des neuen Zustands.
+    // Je höher die Temperatur desto wahrscheinlicher und
+    // je kleiner die Energiedifferenz desto wahrscheinlicher.
+	private double calculatePossibility(int newEnergy) {
+		calculateEnergy(newEnergy);
+		double result = Math.pow(Math.E, -deltaEnergy/temperature);
+		return result;
+	}
+	
+	// Energieänderung im Vergleich zum vorigen Zustand
+	private void calculateEnergy(int newEnergy) {
+		deltaEnergy =  newEnergy-fitnessValue;
+	}
 
 	@Override
 	public void findMinimum() throws Exception {
 		int localMinimumIndex = 0;
+		int acceptedValueIndex = 0;
 		
-		pending = false;
 		reachedLocalMinimum = true;
 		
 		System.out.println('\n' + "##### Run: " + numberOfRuns + " ######");
@@ -123,10 +144,25 @@ public class SimulatedAnnealing implements SimulatedAnnealingSpec {
 			if (Math.abs(possibleSolutions[i]) < Math.abs(fitnessValue)) {
 				localMinimumIndex = i;
 				fitnessValue = possibleSolutions[i];
-				pending = true;	
 				reachedLocalMinimum = false;
 				System.out.println("Better solution at index " + i + ": " + possibleSolutions[i]);
+				pending = 0;
 			}
+			else {
+				if (Math.random() < calculatePossibility(possibleSolutions[i])) {
+					acceptedValueIndex = i;	
+					acceptedValues++;
+					System.out.println("Worse solution at index " + i + " accepted: " + possibleSolutions[i] + " (probability: " + calculatePossibility(possibleSolutions[i]) + ")");				
+				}		
+			}
+		}
+		
+		pending++;
+		
+		if (reachedLocalMinimum == true) {
+			localMinimumIndex = acceptedValueIndex;
+			reachedLocalMinimum = false;
+			fitnessValue = possibleSolutions[acceptedValueIndex];
 		}
 		
 		switch (localMinimumIndex) {
@@ -157,6 +193,14 @@ public class SimulatedAnnealing implements SimulatedAnnealingSpec {
 		default:
 			break;
 		}	
+	}
+	
+	public void coolingTemperature() {
+		temperature = 0.9*temperature;
+	}
+	
+	public double getTemperature() {
+		return temperature;
 	}
 
 	@Override
@@ -206,12 +250,20 @@ public class SimulatedAnnealing implements SimulatedAnnealingSpec {
 		return possibleSolutions;
 	}
 	
-	public boolean getPending() {
+	public int getPending() {
 		return pending;
 	}
 	
 	public boolean getReachedLocalMinimum() {
 		return reachedLocalMinimum;
+	}
+	
+	public int getAcceptedValues() {
+		return acceptedValues;
+	}
+	
+	public void resetAcceptedValues() {
+		acceptedValues = 0;
 	}
 
 	@Override

@@ -59,14 +59,14 @@ public class SimulatedAnnealingImplementation extends Thread {
 			@Override public void run() {
 				try {
 			  		do {
-			  			Thread.sleep(2000);
+			  			Thread.sleep(20);
 			  			
 			  			sa.computePossibleSolutions();
 						
 						setLabels();
 						sa.printPossibleSolutions();
 						
-						if (sa.getPending() == false) {
+						if (sa.getPending() == 90) {
 							break;
 						}
 						
@@ -77,8 +77,14 @@ public class SimulatedAnnealingImplementation extends Thread {
 						}	
 						if (sa.getFitnessValue() == 0) {
 							gui.showGlobalMinimumDialog();
-						}						
-					} while(sa.getPending() == true);
+						}		
+						
+						if (sa.getAcceptedValues() >= 25) {
+							sa.coolingTemperature();
+							System.out.println("Current temperature = " + sa.getTemperature());
+							sa.resetAcceptedValues();
+						}					
+					} while(sa.getPending() < 100);
 				} catch ( InterruptedException e ) { e.printStackTrace(); } catch (Exception e) {
 				  e.printStackTrace();
 				}

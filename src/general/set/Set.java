@@ -40,7 +40,18 @@ public class Set implements SetSpec {
 
 	@Override
 	public void replaceValue(int newValue, int index) {		
-		values[index] = newValue;
+		if (index >= values.length) {
+			System.out.println("Current solution has no upper neighbor.");
+			values[values.length-1] = newValue;
+		}
+		else if (index < 0) {
+			System.out.println("Current solution has no lower neighbor.");
+			values[0] = newValue;
+		}
+		else {
+			values[index] = newValue;
+		}
+		
 		this.refreshed = false;
 	}
 
@@ -76,13 +87,15 @@ public class Set implements SetSpec {
 	public int getValue(int index) throws Exception {
 		if (index >= values.length) {
 			System.out.println("Current solution has no upper neighbor.");
-			return values[index-1];
+			return values[values.length-1];
 		}
-		if (index < 0) {
+		else if (index < 0) {
 			System.out.println("Current solution has no lower neighbor.");
 			return values[0];
 		}
-		return values[index];
+		else {
+			return values[index];
+		}	
 	}
 	
 	@Override
